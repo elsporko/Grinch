@@ -1,0 +1,37 @@
+[
+    {
+        "model": "picklist.route",
+        "pk": 1,
+        "fields":{
+            "name": "mon"
+        }
+    },
+    {
+        "model": "picklist.route",
+        "pk": 2,
+        "fields":{
+            "name": "tue"
+        }
+    },
+    {
+        "model": "picklist.route",
+        "pk": 3,
+        "fields":{
+            "name": "wed"
+        }
+    },
+    {
+        "model": "picklist.route",
+        "pk": 4,
+        "fields":{
+            "name": "thu"
+        }
+    },
+    {
+        "model": "picklist.route",
+        "pk": 5,
+        "fields":{
+            "name": "fri"
+        }
+    }
+]

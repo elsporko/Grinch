@@ -1,0 +1,50 @@
+[
+  {
+      "model": "picklist.picklist",
+      "pk": 1,
+      "fields":{
+          "order_id": 178,
+          "pickup_date": "2022-12-31",
+          "route": 1,
+          "first_name": "Nadine",
+          "last_name": "Richert",
+          "home_phone": "(774) 287-2666",
+          "email": "nadineroserichert@gmail.com",
+          "street_address": "1  Lemay Way",
+          "where_is_it": "INFRONT",
+          "client_comment": ""
+      }
+  },
+ {
+     "model": "picklist.picklist",
+     "pk": 2,
+     "fields":{
+         "order_id": 171,
+         "pickup_date": "2022-12-31",
+         "route": 1,
+         "first_name": "Sharon",
+         "last_name": "Wholey",
+         "home_phone": "(978) 251-9622",
+         "email": "s.wholey@comcast.net",
+         "street_address": "10 Edgelawn Av",
+         "where_is_it": "DRIVEWAY",
+         "client_comment": ""
+     }
+ },
+ {
+     "model": "picklist.picklist",
+     "pk": 3,
+     "fields":{
+         "order_id": 329,
+         "pickup_date": "2022-12-31",
+         "route": 1,
+         "first_name": "Shevaun",
+         "last_name": "Assini",
+         "home_phone": "(978) 430-3764",
+         "email": "shevaun.simko@yahoo.com",
+         "street_address": "10 Sherman St",
+         "where_is_it": "DRIVEWAY",
+         "client_comment": ""
+     }
+  }
+]
