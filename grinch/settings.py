@@ -30,6 +30,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# Extending standard user model
+AUTH_USER_MODEL = 'users.GrinchUser'
+
 INSTALLED_APPS = [
     'users',
     'django.contrib.admin',
@@ -84,7 +87,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
