@@ -10,6 +10,7 @@ class Route(models.Model):
     Identify routes by name users.groups tie to 1:1 to a route
     """
     name = models.CharField (max_length=30, null=False, blank=False)
+    active = models.BooleanField(default=True)
 
     @classmethod
     def get_route_id_by_name(self, route_name):

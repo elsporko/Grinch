@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PickList
+from .models import PickList, Route
 
 class PicklistSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,3 +9,8 @@ class PicklistSerializer(serializers.ModelSerializer):
                   'where_is_it', 'client_comment', 'admin_comment',
                   'got_money', 'got_tree',
                  ]
+
+class RouteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Route
+        fields = ['name', 'active']

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from .models import PickList, Route
-from .serializers import PicklistSerializer
+from .serializers import PicklistSerializer, RouteSerializer
 from rest_framework import status
 
 class Picklists(ListCreateAPIView):
@@ -20,5 +20,9 @@ class Picklists(ListCreateAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class Picklist(RetrieveAPIView):
-    queryset = PickList.objects.all()
+    queryset = PickList.objects.all().order_by('route')
     serializer_class = PicklistSerializer
+
+class Routes(ListCreateAPIView):
+    queryset = Route.objects.filter(active=True)
+    serializer_class = RouteSerializer
