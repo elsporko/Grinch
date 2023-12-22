@@ -1,0 +1,56 @@
+* highly available
+* low latency
+* 2 tier architecture client - server/database
+
+Email to be sent through Google workspace API: https://developers.google.com/gmail/api/guides/sending
+
+##############################################################
+Use Redis for caching (lat/long data)
+Use Redis as message broker
+##############################################################
+
+API points
+    Foreign (from registration system):
+    =======
+        * picklist records
+            GET            
+                * order_id - Unique value inherited from sign-up app
+                * pickup_date - Requested date of pickup
+                * route - Identify which route to which the entry belongs. This can be changed by either the admin user or by any user assigned to the route.
+                * first_name - First name of customer
+                * last_name - Last name of customer
+                * home_phone - Phone number of customer. When this data appears in the application it will allow for the user to call the customer directly.
+                * email - Email address of customer. This can be used as a backup communication link if the customer is not available by phone.
+                * street_address - Street address of customer
+                * where_is_it - Expected location of the Christmas tree (INFRONT, OUTBACK, DRIVEWAY, etc.)
+                * client_comment - Specific comment from the customer
+
+    Grinch APIs:
+    ===========
+        * picklist records:
+            GET
+                * Unique ID
+                * Name
+                * Address
+                * Phone number
+                * Email
+                * Long
+                * Lat
+            UPDATE
+                * Unique ID
+                * got_tree
+                * got_donation
+                * comment
+
+        * Communication information:
+            GET - setup communication channels
+                * Name
+                * User ID
+            POST - Send messages
+                * Sender user ID
+                * List of receiver UIDs (Optional)
+                * Message
+
+        
+
+

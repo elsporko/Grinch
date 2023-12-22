@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-9v6cj9o81$y^ygu957kmj&gp-qxz+$v%k7iy&dx(%)v@&xxtnv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '192.168.1.242', '127.0.0.1', '10.0.0.68']
 
 
 # Application definition
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'phonenumber_field',
     'picklist',
+    'gis',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +128,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static')
+    ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -142,3 +151,16 @@ PHONENUMBER_DEFAULT_REGION = 'US'
 CORS_ORIGIN_WHITELIST = [
      'http://localhost:3000'
 ]
+
+
+# TODO - debug toolbar does not quite work. "djdt error message"
+#if DEBUG:
+#    from django.urls import path, include
+#    import debug_toolbar
+#
+#    INTERNAL_IPS = ALLOWED_HOSTS
+#    INSTALLED_APPS += ["debug_toolbar"]
+#
+#    MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
+#    urlpatterns = [ path('__debug__/', include(debug_toolbar.urls)), ]
+
