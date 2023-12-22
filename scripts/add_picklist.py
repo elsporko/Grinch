@@ -5,6 +5,7 @@ with open('picklist.csv') as f:
 
 url = 'http://localhost:8000/api/picklist/'
 for line in lines:
+    print(line.split(","))
     (orderid,PickupDate,route,firstname,lastname,homephone,email,streetaddress,whereisit,comments) = line.split(',')
 
     picklist_data = {
@@ -20,5 +21,7 @@ for line in lines:
            'client_comment' : comments,
     }
 
+    print(f'picklst_data: {picklist_data}')
+
     x = requests.post(url, picklist_data)
-    print (x.text)
+    print(x)

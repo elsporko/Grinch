@@ -1,37 +1,47 @@
 [
     {
         "model": "picklist.route",
-        "pk": 1,
-        "fields":{
-            "name": "mon"
+        "pk": "fri",
+        "fields": {
+            "order_id": 5,
+            "name": "Friday",
+            "active": true
         }
     },
     {
         "model": "picklist.route",
-        "pk": 2,
-        "fields":{
-            "name": "tue"
+        "pk": "mon",
+        "fields": {
+            "order_id": 1,
+            "name": "Monday",
+            "active": true
         }
     },
     {
         "model": "picklist.route",
-        "pk": 3,
-        "fields":{
-            "name": "wed"
+        "pk": "thu",
+        "fields": {
+            "order_id": 4,
+            "name": "Thursday",
+            "active": true
         }
     },
     {
         "model": "picklist.route",
-        "pk": 4,
-        "fields":{
-            "name": "thu"
+        "pk": "tue",
+        "fields": {
+            "order_id": 2,
+            "name": "Tuesday",
+            "active": true
         }
     },
     {
         "model": "picklist.route",
-        "pk": 5,
-        "fields":{
-            "name": "fri"
+        "pk": "wed",
+        "fields": {
+            "order_id": 3,
+            "name": "Wednesday",
+            "active": true
         }
     }
 ]

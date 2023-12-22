@@ -12,10 +12,22 @@ class Picklists(ListCreateAPIView):
 
     def post(self, request):
         data = request.data.copy()
-        data['route'] = Route.get_route_id_by_name(data['route'])
 
         serializer=self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
+        serializer.is_valid()
+        # TODO - Gracefully handle serializer invalidation
+        print(f'ERROR: {serializer.errors}')
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request):
+        data = request.data.copy()
+
+        print(f'request: {request.__dict__}')
+        serializer=self.get_serializer(data=data)
+        serializer.is_valid()
+        # TODO raise an error if there is a save error
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -26,3 +38,17 @@ class Picklist(RetrieveAPIView):
 class Routes(ListCreateAPIView):
     queryset = Route.objects.filter(active=True)
     serializer_class = RouteSerializer
+
+    def post (self, request):
+        data = request.data.copy()
+
+        serializer=self.get_serializer(data=data)
+        serializer.is_valid()
+        # TODO raise an error if there is a save error
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class Route(RetrieveAPIView):
+    queryset = Route.objects.filter(active=True)
+    serializer_class = RouteSerializer
+

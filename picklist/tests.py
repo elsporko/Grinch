@@ -1,55 +1,83 @@
-from django.test import TestCase
+#from django.test import TestCase
+from picklist.models import PickList, Route
+import pytest
 
 from picklist.models import *
 
-class PicklistTests(TestCase):
-    fixtures = ['routes.json', 'picklist.json']
+@pytest.mark.django_db
+def test_get_picklist(api_client):
 
-    def test_get_address(self):
-        addr = PickList.objects.get(pk=1)
-        self.assertEqual(addr.order_id, 178)
+    url = '/api/picklist/702/'
+    response = api_client.get(url, format='json')
 
-    def test_save_picklist(self):
-        new_p = PickList()
+    payload = response.data
+    assert response.status_code == 200
 
-        new_p.order_id = 1
-        new_p.pickup_date = '2023-02-14'
-        new_p.route = Route.objects.get(pk=1)
-        new_p.first_name = 'John'
-        new_p.last_name = 'Spooner'
-        new_p.home_phone = '9788461531'
-        new_p.email = 'elsporko@gmail.com'
-        new_p.street_address = '47 Mission Road'
-        new_p.where_is_it = 'DRIVEWAY'
-        new_p.client_comment = 'Thanks'
+    sample_pick = PickList.objects.get(order_id = 702)
+    assert payload['name'] == (f'{sample_pick.first_name} {sample_pick.last_name}')
 
-        new_p.save()
+#TODO Add picklist via API POST and verify the data (including lat/lon) are correct
+#   * Ensure proper status code
+#   * Check data accuracy
+#   * Ensure there is a record in gis_gis for the lon/lat values
+#@pytest.mark.django_db
+#def test_post_update_picklist(api_client):
+#    url = '/api/picklist/'
+#
+#    street_address =  '47 Mission Road'
+#    new_picklist = {
+#            'order_id' : 900,
+#            'pickup_date' : '2022-12-31',
+#            'route' : 'mon',
+#            'home_phone' : '+19788461531',
+#            'email' : 'elsporko@gmail.com',
+#            'street_address' : street_address,
+#            'where_is_it' : 'DRIVEWAY',
+#            'client_comment' : '',
+#            'first_name': 'John',
+#            'last_name': 'Spooner',
+#    }
+#
+#    response = api_client.post(url, new_picklist)
+#    assert response.status_code == 200
+#
+#    # Ensure a local record has been written to gis_gis
+#    test_rec = PickList.objects.get(order_id = 900)
+#    gis_rec = GIS.objects.get(street_address = street_address)
+#    assert (test_rec.lat == gis_rec.lat)
+#    assert (test_rec.lon == gis_rec.lon)
+#
+#    new_picklist['route'] = 'thu'
+#    response = api_client.put(url, new_picklist)
+#    print(f'response: {response}')
+#    assert response.status_code == 200
+#    
+#    test_rec = PickList.objects.put(order_id = 900)
+#    assert test_rec.route == 'thu'
 
-        p = PickList.objects.get(pk=4)
+@pytest.mark.django_db
+def test_get_route(api_client, route_fixture):
+    url = '/api/routes/mon/'
+    response = api_client.get(url, format='json')
 
-        self.assertEqual(p.order_id, 1)
-        #self.assertEqual(p.pickup_date, '2023-02-14')
-        self.assertEqual(p.route, Route.objects.get(pk=1))
-        self.assertEqual(p.first_name, 'John')
-        self.assertEqual(p.last_name, 'Spooner')
-        self.assertEqual(p.home_phone, '9788461531')
-        self.assertEqual(p.email, 'elsporko@gmail.com')
-        self.assertEqual(p.street_address, '47 Mission Road')
-        self.assertEqual(p.where_is_it, 'DRIVEWAY')
-        self.assertEqual(p.client_comment, 'Thanks')
+    payload = response.data
+    assert response.status_code == 200
 
-    def test_update_picklist(self):
-        p = PickList.objects.get(pk=4)
-        p.client_comment = 'Good job!!!'
-        p.update_picklist()
+    sample_route = Route.objects.get(pk='mon')
+    assert payload['name'], sample_route.name
 
+#TODO Add Route via API POST
+# * Create new record and validate data, ensure default satus is active
+# * Set new route to inactive and validate that only active records are returned
+@pytest.mark.django_db
+def test_post_update_route(api_client):
+    url = '/api/routes/'
+    new_route = {
+        'order_id': 10,
+        'abbrev': 'new',
+        'name':'New Route',
+    }
 
-class RouteTests(TestCase):
-    fixtures = ['routes.json']
-
-    def test_get_route(self):
-        route = Route.objects.get(pk=1)
-        self.assertEqual(route.name, 'mon')
-
-class RouteNoteTests(TestCase):
-    pass
+    response = api_client.post(url, new_route)
+    print(f'response: {response}')
+    assert response.status_code == 200
