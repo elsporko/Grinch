@@ -1,13 +1,22 @@
-from django impo9rt forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auto.models import User
+# from django import forms
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+# from django.contrib.auth.models import User
+from users.models import GrinchUser
+# from picklist.models import Route
 
-class UserCreationForm(UserCreationForm):
-    name = forms.CharField(max_length=100)
-    route = models.ForeignKey(Route, null=True, on_delete=models.PROTECT)
-    email = models.EmailField(max_length=128)
+
+class GrinchUserCreationForm(UserCreationForm):
+    # name = forms.CharField(max_length=100)
+    # route = models.ForeignKey(Route, null=True, on_delete=models.PROTECT)
+    # email = models.EmailField(max_length=128)
 
     class Meta:
-        model = User
-        fields = ['username', 'name', 'route', 'email', 'password1', 'password2']
+        model = GrinchUser
+        fields = '__all__'
 
+
+class GrinchUserChangeForm(UserChangeForm):
+
+    class Meta:
+        model = GrinchUser
+        fields = '__all__'
