@@ -13,7 +13,6 @@ class TestUsersManagers:
         assert user.is_superuser is False
         authenticated_user = authenticate(username='testUser', password='1234')
         assert authenticated_user == user
-        print(f'new password: {user.password}')
 
     @pytest.mark.django_db
     def test_create_superuser(self):

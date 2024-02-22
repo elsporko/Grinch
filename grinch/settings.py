@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 
+# Log config copied to another file
+from .log_settings import *
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -149,8 +152,8 @@ FIXTURE_DIRS = (
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'US'
 
-CORS_ALLOW_PRIVATE_NETWORK = True
-
+# CORS_ALLOW_PRIVATE_NETWORK = True
+CORS_ALLOW_CREDENTIALS = True
 # TODO - Move CORS allowed origins to settings.local
 CORS_ALLOWED_ORIGINS = [
      'http://localhost:3000',
@@ -159,7 +162,7 @@ CORS_ALLOWED_ORIGINS = [
 
 
 # TODO - debug toolbar does not quite work. "djdt error message"
-#if DEBUG:
+# if DEBUG:
 #    from django.urls import path, include
 #    import debug_toolbar
 #
@@ -168,4 +171,3 @@ CORS_ALLOWED_ORIGINS = [
 #
 #    MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 #    urlpatterns = [ path('__debug__/', include(debug_toolbar.urls)), ]
-
