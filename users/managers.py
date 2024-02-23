@@ -9,7 +9,6 @@ class CustomUserManager(BaseUserManager):
         user = self.model(username=username, **extra_fields)
         user.set_password(password)
         user.save()
-        logger.info(f'Password for new user: {user.password}')
         return user
 
     def create_superuser(self, username, password, **extra_fields):
