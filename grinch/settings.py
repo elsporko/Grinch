@@ -68,6 +68,21 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'grinch.urls'
 
+# cors settings
+CORS_ALLOWED_HEADERS = [
+    'access-control-allow-origin',
+    'access-control-allow-headers',
+    'X-CSRFToken',
+    'content-type',
+                        ]
+
+CORS_ALLOW_CREDENTIALS=True
+CORS_ALLOWED_ORIGINS=[
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',
+]
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
