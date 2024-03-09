@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 
+# Log config copied to another file
+from .log_settings import *
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,6 +40,7 @@ AUTH_USER_MODEL = 'users.GrinchUser'
 LOGIN_REDIRECT_URL = 'home'
 
 INSTALLED_APPS = [
+    'corsheaders',
     'users',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,7 +49,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'corsheaders',
     'rest_framework',
     'phonenumber_field',
     'picklist',
@@ -53,6 +56,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,10 +64,24 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'grinch.urls'
+
+# cors settings
+CORS_ALLOWED_HEADERS = [
+    'access-control-allow-origin',
+    'access-control-allow-headers',
+    'X-CSRFToken',
+    'content-type',
+                        ]
+
+CORS_ALLOW_CREDENTIALS=True
+CORS_ALLOWED_ORIGINS=[
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',
+]
+
 
 TEMPLATES = [
     {
@@ -148,13 +166,18 @@ FIXTURE_DIRS = (
 
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'US'
-CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000'
+
+# CORS_ALLOW_PRIVATE_NETWORK = True
+CORS_ALLOW_CREDENTIALS = True
+# TODO - Move CORS allowed origins to settings.local
+CORS_ALLOWED_ORIGINS = [
+     'http://localhost:3000',
+     'https://editor-next.swagger.io'
 ]
 
 
 # TODO - debug toolbar does not quite work. "djdt error message"
-#if DEBUG:
+# if DEBUG:
 #    from django.urls import path, include
 #    import debug_toolbar
 #
@@ -163,4 +186,3 @@ CORS_ORIGIN_WHITELIST = [
 #
 #    MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 #    urlpatterns = [ path('__debug__/', include(debug_toolbar.urls)), ]
-
