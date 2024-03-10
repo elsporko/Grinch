@@ -6,7 +6,7 @@ from .models import PickList, Route
 from .serializers import PicklistSerializer, RouteSerializer
 from rest_framework import status
 
-class Picklists(ListCreateAPIView):
+class PicklistsViewSet(ListCreateAPIView):
     queryset = PickList.objects.all()
     serializer_class = PicklistSerializer
 
@@ -31,7 +31,7 @@ class Picklists(ListCreateAPIView):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class Picklist(RetrieveAPIView):
+class PicklistViewSet(RetrieveAPIView):
     queryset = PickList.objects.all().order_by('route')
     serializer_class = PicklistSerializer
 
