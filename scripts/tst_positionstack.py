@@ -3,16 +3,20 @@ import http.client, urllib.parse
 
 conn = http.client.HTTPConnection('api.positionstack.com')
 
-params = urllib.parse.urlencode({
-    'access_key': 'a8a9e23c51078b7d65b82236902e0764',
-    'query': '10 Edgelawn Av, Chelmsford, MA',
-    'region': 'Massachusetts',
-    'limit': 1,
-    })
+queries = ['112 Westford St, Chelmsford, MA',
+           '11 Pine Hill Rd, Chelmsford, MA']
 
-conn.request('GET', '/v1/forward?{}'.format(params))
+for query in queries:
+    params = urllib.parse.urlencode({
+        'access_key': 'a8a9e23c51078b7d65b82236902e0764',
+        'query': query,
+        'region': 'Massachusetts',
+        'limit': 1,
+        })
 
-res = conn.getresponse()
-data = res.read()
+    conn.request('GET', '/v1/forward?{}'.format(params))
 
-print(data.decode('utf-8'))
+    res = conn.getresponse()
+    data = res.read()
+
+    print(data.decode('utf-8'))
