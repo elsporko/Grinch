@@ -52,7 +52,7 @@ class PickList(models.Model):
             self.lat = coords.lat
             self.lon = coords.lon
         except GIS.DoesNotExist:
-            coords = gis.get_lon_lat_external(self.street_address)
+            coords = gis.get_coords(self.street_address)
             self.lat = coords['lat']
             self.lon = coords['lon']
 

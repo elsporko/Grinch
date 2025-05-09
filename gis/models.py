@@ -12,7 +12,14 @@ class GIS(models.Model):
 
     """
     """
-    def get_lon_lat_external(self, street_address):
+    @staticmethod
+    def get_coords(street_address):
+        try:
+            local_coords = GIS.objects.get(street_address=street_address)
+            return{'lat': local_coords.lat, 'lon': local_coords.lon, 'address': local_coords.street_address}
+        except GIS.DoesNotExist:
+            pass
+
         conn = http.client.HTTPConnection('api.positionstack.com')
 
         params = urllib.parse.urlencode({
@@ -33,12 +40,13 @@ class GIS(models.Model):
             # TODO - Gracefully handle error response from positionstack.
             return{'lat': 0, 'lon': 0, 'address': street_address}
 
-        
-        self.street_address = street_address
-        self.lat = coords['data'][0]['latitude']
-        self.lon = coords['data'][0]['longitude']
+        new_record = GIS(
+        street_address = street_address
+        lat = coords['data'][0]['latitude']
+        lon = coords['data'][0]['longitude']
+        )
 
-        self.save()
+        new_record.save()
 
         return{'lat': coords['data'][0]['latitude'], 
                'lon': coords['data'][0]['longitude'], 
