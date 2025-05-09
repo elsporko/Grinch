@@ -41,8 +41,8 @@ class GIS(models.Model):
             return{'lat': 0, 'lon': 0, 'address': street_address}
 
         new_record = GIS(
-        street_address = street_address
-        lat = coords['data'][0]['latitude']
+        street_address = street_address,
+        lat = coords['data'][0]['latitude'],
         lon = coords['data'][0]['longitude']
         )
 
