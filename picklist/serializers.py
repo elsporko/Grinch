@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PickList, Route, GIS
+from .models import PickList
 
 class PicklistSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
@@ -16,9 +16,4 @@ class PicklistSerializer(serializers.ModelSerializer):
                   'first_name', 'last_name'
                  ]
 
-class RouteSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Route
-        fields = ['order_id', 'abbrev', 'name', 'active']
 

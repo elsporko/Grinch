@@ -1,5 +1,6 @@
 #from django.test import TestCase
-from picklist.models import PickList, Route
+from picklist.models import PickList
+fromn route.modelsimport Route
 import pytest
 
 from picklist.models import *

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'picklist',
     'gis',
+    'route',
      'drf_yasg',
 ]
 

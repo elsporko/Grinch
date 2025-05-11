@@ -3,8 +3,10 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
 from rest_framework.response import Response
 #from rest_framework.decorators import action
-from .models import PickList, Route
-from .serializers import PicklistSerializer, RouteSerializer
+from .models import PickList
+from route.models import Route
+from .serializers import PicklistSerializer
+from route.serializers import RouteSerializer
 from rest_framework import status
 
 import logging

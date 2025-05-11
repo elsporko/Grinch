@@ -8,7 +8,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 # from django.urls import re_path
 
 from users.views import GrinchUserView, GrinchUserRegisterView, GrinchUserLoginView, GrinchUserLogoutView
-from picklist.views import (RouteViewSet, RoutesViewSet)
+from route.views import (RouteViewSet, RoutesViewSet)
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view

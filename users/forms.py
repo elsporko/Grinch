@@ -2,7 +2,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 # from django.contrib.auth.models import User
 from users.models import GrinchUser
-# from picklist.models import Route
+# from route.models import Route
 
 
 class GrinchUserCreationForm(UserCreationForm):

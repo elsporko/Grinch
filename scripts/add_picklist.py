@@ -1,6 +1,6 @@
 import requests
 
-with open('picklist.csv') as f:
+with open('./all_picklist.csv') as f:
     lines = [line.replace('"', '').rstrip() for line in f]
 
 url = 'http://localhost:8000/api/picklist/'
