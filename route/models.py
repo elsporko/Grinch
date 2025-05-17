@@ -17,6 +17,9 @@ class Route(models.Model):
     abbrev = models.CharField (max_length=5, null=False, blank=False, primary_key=True)
     active = models.BooleanField(default=True, blank=False) # Note for initial development the database is sqlite3 which does not have a boolean type so it does not rewpect boolean default values
 
+    def __str__(self):
+        return f;"{self.name} ({self.abbrev})"
+
     @classmethod
     def get_route_id_by_abbrev(self, abbrev):
         return self.objects.get(abbrev = abbrev)
