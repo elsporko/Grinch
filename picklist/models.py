@@ -2,6 +2,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 import http.client, urllib.parse
 from gis.models import GIS
+from grinch.models import BaseModel
 
 import logging
 import json
@@ -9,12 +10,13 @@ logger = logging.getLogger(__name__)
 
 from route.models import Route
 
-class PickList(models.Model):
+class PickList(BaseModel):
     """
     """
+    #TODO - Change the order_id from an integer to a UUID. It will no longer be tied to the legacy signup app.
     order_id = models.IntegerField(null=False, blank=False, primary_key=True) # PK from signup app. Used to avoid duplicate entries
     pickup_date = models.DateField(null=False, blank=False)
-    route = models.ForeignKey(Route, null=False, on_delete=models.PROTECT)
+    route = models.ForeignKey(Route, null=True, blank=True, on_delete=models.PROTECT)
     first_name = models.CharField (max_length=64, null=True, blank=True)
     last_name = models.CharField (max_length=64, null=True, blank=True)
     home_phone = PhoneNumberField(null=False, blank=True, unique=True)

@@ -1,4 +1,5 @@
 from django.db import models
+from grinch.models import BaseModel
 from phonenumber_field.modelfields import PhoneNumberField
 import http.client, urllib.parse
 from gis.models import GIS
@@ -7,7 +8,8 @@ import logging
 import json
 logger = logging.getLogger(__name__)
 
-class Route(models.Model):
+
+class Route(BaseModel):
     """
     Identify routes by name users.groups tie to 1:1 to a route
     """
@@ -18,10 +20,9 @@ class Route(models.Model):
     active = models.BooleanField(default=True, blank=False) # Note for initial development the database is sqlite3 which does not have a boolean type so it does not rewpect boolean default values
 
     def __str__(self):
-        return f;"{self.name} ({self.abbrev})"
+        return f"{self.name} ({self.abbrev})"
 
     @classmethod
     def get_route_id_by_abbrev(self, abbrev):
         return self.objects.get(abbrev = abbrev)
 
-# Create your models here.
