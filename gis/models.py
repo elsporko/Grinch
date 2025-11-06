@@ -1,24 +1,25 @@
 from django.db import models
 import http.client, urllib.parse
+from grinch.models import BaseModel
+from contextlib import suppress
 import json
 
-class GIS(models.Model):
+class GIS(BaseModel):
     """
     Local storage of Lat and Long data to reduce the number of outgoing API calls to map GIS coordinates to addresses
     """
-    street_address = models.CharField(max_length=140, null=False, blank=False)
-    lat = models.FloatField()
-    lon = models.FloatField()
+    street_address: models.CharField = models.CharField(max_length=140, null=False, blank=False)
+    lat: models.FloatField = models.FloatField()
+    lon: models.FloatField = models.FloatField()
 
     """
     """
     @staticmethod
     def get_coords(street_address):
-        try:
+        with suppress(GIS.DoesNotExist):
             local_coords = GIS.objects.get(street_address=street_address)
             return{'lat': local_coords.lat, 'lon': local_coords.lon, 'address': local_coords.street_address}
-        except GIS.DoesNotExist:
-            pass
+
 
         conn = http.client.HTTPConnection('api.positionstack.com')
 
@@ -29,7 +30,7 @@ class GIS(models.Model):
             'limit': 1,
             })
 
-        conn.request('GET', '/v1/forward?{}'.format(params))
+        conn.request('GET', f'/v1/forward?{format(params)}')
 
         res = conn.getresponse()
         coords = json.loads(res.read().decode('utf-8'))

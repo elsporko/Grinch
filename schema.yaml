@@ -1,0 +1,751 @@
+openapi: 3.0.3
+info:
+  title: Grinch API
+  version: 1.0.0
+  description: API for Grinch Delivery Management System
+paths:
+  /api/picklists/:
+    get:
+      operationId: api_picklists_list
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Picklist'
+          description: ''
+    post:
+      operationId: api_picklists_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Picklist'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Picklist'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Picklist'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Picklist'
+          description: ''
+  /api/picklists/{order_id}/:
+    get:
+      operationId: api_picklists_retrieve
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: integer
+        description: A unique value identifying this pick list.
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Picklist'
+          description: ''
+    put:
+      operationId: api_picklists_update
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: integer
+        description: A unique value identifying this pick list.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Picklist'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Picklist'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Picklist'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Picklist'
+          description: ''
+    patch:
+      operationId: api_picklists_partial_update
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: integer
+        description: A unique value identifying this pick list.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPicklist'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPicklist'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPicklist'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Picklist'
+          description: ''
+    delete:
+      operationId: api_picklists_destroy
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: integer
+        description: A unique value identifying this pick list.
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/picklists/assign_groups/:
+    put:
+      operationId: api_picklists_assign_groups_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Picklist'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Picklist'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Picklist'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Picklist'
+          description: ''
+  /api/routes/:
+    get:
+      operationId: api_routes_list
+      description: Display a single route
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Route'
+          description: ''
+    post:
+      operationId: api_routes_create
+      description: Display a single route
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Route'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Route'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Route'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+          description: ''
+  /api/routes/{abbrev}/:
+    get:
+      operationId: api_routes_retrieve
+      description: Display a single route
+      parameters:
+      - in: path
+        name: abbrev
+        schema:
+          type: string
+        description: A unique value identifying this route.
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+          description: ''
+    put:
+      operationId: api_routes_update
+      description: Display a single route
+      parameters:
+      - in: path
+        name: abbrev
+        schema:
+          type: string
+        description: A unique value identifying this route.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Route'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Route'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Route'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+          description: ''
+    patch:
+      operationId: api_routes_partial_update
+      description: Display a single route
+      parameters:
+      - in: path
+        name: abbrev
+        schema:
+          type: string
+        description: A unique value identifying this route.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedRoute'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedRoute'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedRoute'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+          description: ''
+    delete:
+      operationId: api_routes_destroy
+      description: Display a single route
+      parameters:
+      - in: path
+        name: abbrev
+        schema:
+          type: string
+        description: A unique value identifying this route.
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/users/:
+    get:
+      operationId: api_users_list
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GrinchUser'
+          description: ''
+  /api/users/{id}:
+    get:
+      operationId: api_users_list_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GrinchUser'
+          description: ''
+  /login/:
+    post:
+      operationId: login_create
+      tags:
+      - login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrinchLogin'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GrinchLogin'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GrinchLogin'
+        required: true
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrinchLogin'
+          description: ''
+  /logout/:
+    post:
+      operationId: logout_create
+      tags:
+      - logout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrinchUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GrinchUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GrinchUser'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrinchUser'
+          description: ''
+  /register/:
+    post:
+      operationId: register_create
+      tags:
+      - register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GrinchUserRegister'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GrinchUserRegister'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GrinchUserRegister'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrinchUserRegister'
+          description: ''
+components:
+  schemas:
+    GrinchLogin:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+      - password
+      - username
+    GrinchUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        password:
+          type: string
+          maxLength: 128
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        date_joined:
+          type: string
+          format: date-time
+        route:
+          type: string
+          nullable: true
+        groups:
+          type: array
+          items:
+            type: integer
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+          description: Specific permissions for this user.
+      required:
+      - id
+      - name
+      - password
+      - username
+    GrinchUserRegister:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        password:
+          type: string
+          maxLength: 128
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        date_joined:
+          type: string
+          format: date-time
+        route:
+          type: string
+          nullable: true
+        groups:
+          type: array
+          items:
+            type: integer
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+          description: Specific permissions for this user.
+      required:
+      - id
+      - password
+      - username
+    PatchedPicklist:
+      type: object
+      properties:
+        order_id:
+          type: integer
+        pickup_date:
+          type: string
+          format: date
+        route:
+          type: string
+          nullable: true
+        name:
+          type: string
+          readOnly: true
+        home_phone:
+          type: string
+          maxLength: 128
+        email:
+          type: string
+          format: email
+          maxLength: 128
+        street_address:
+          type: string
+          maxLength: 140
+        where_is_it:
+          type: string
+          nullable: true
+          maxLength: 30
+        client_comment:
+          type: string
+          nullable: true
+          maxLength: 256
+        admin_comment:
+          type: string
+          nullable: true
+          maxLength: 500
+        got_money:
+          type: boolean
+        got_tree:
+          type: boolean
+        first_name:
+          type: string
+          nullable: true
+          maxLength: 64
+        last_name:
+          type: string
+          nullable: true
+          maxLength: 64
+    PatchedRoute:
+      type: object
+      properties:
+        order_id:
+          type: integer
+        abbrev:
+          type: string
+          maxLength: 5
+        name:
+          type: string
+          maxLength: 30
+        active:
+          type: boolean
+    Picklist:
+      type: object
+      properties:
+        order_id:
+          type: integer
+        pickup_date:
+          type: string
+          format: date
+        route:
+          type: string
+          nullable: true
+        name:
+          type: string
+          readOnly: true
+        home_phone:
+          type: string
+          maxLength: 128
+        email:
+          type: string
+          format: email
+          maxLength: 128
+        street_address:
+          type: string
+          maxLength: 140
+        where_is_it:
+          type: string
+          nullable: true
+          maxLength: 30
+        client_comment:
+          type: string
+          nullable: true
+          maxLength: 256
+        admin_comment:
+          type: string
+          nullable: true
+          maxLength: 500
+        got_money:
+          type: boolean
+        got_tree:
+          type: boolean
+        first_name:
+          type: string
+          nullable: true
+          maxLength: 64
+        last_name:
+          type: string
+          nullable: true
+          maxLength: 64
+      required:
+      - email
+      - name
+      - order_id
+      - pickup_date
+      - street_address
+    Route:
+      type: object
+      properties:
+        order_id:
+          type: integer
+        abbrev:
+          type: string
+          maxLength: 5
+        name:
+          type: string
+          maxLength: 30
+        active:
+          type: boolean
+      required:
+      - abbrev
+      - name
+      - order_id
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

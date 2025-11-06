@@ -14,21 +14,21 @@ class PickList(BaseModel):
     """
     """
     #TODO - Change the order_id from an integer to a UUID. It will no longer be tied to the legacy signup app.
-    order_id = models.IntegerField(null=False, blank=False, primary_key=True) # PK from signup app. Used to avoid duplicate entries
-    pickup_date = models.DateField(null=False, blank=False)
-    route = models.ForeignKey(Route, null=True, blank=True, on_delete=models.PROTECT)
-    first_name = models.CharField (max_length=64, null=True, blank=True)
-    last_name = models.CharField (max_length=64, null=True, blank=True)
+    order_id: models.IntegerField = models.IntegerField(null=False, blank=False, primary_key=True) # PK from signup app. Used to avoid duplicate entries
+    pickup_date: models.DateField = models.DateField(null=False, blank=False)
+    route: models.ForeignKey = models.ForeignKey(Route, null=True, blank=True, on_delete=models.PROTECT)
+    first_name: models.CharField = models.CharField (max_length=64, null=True, blank=True)
+    last_name: models.CharField = models.CharField (max_length=64, null=True, blank=True)
     home_phone = PhoneNumberField(null=False, blank=True, unique=True)
-    email = models.EmailField(max_length=128)
-    street_address = models.CharField(max_length=140, null=False, blank = False)
-    where_is_it = models.CharField (max_length=30, null=True, blank=True)
-    client_comment = models.CharField (max_length=256, null=True, blank=True) # Comment that comes from the tree registration app ('Pick up inside the house', etc.)
-    admin_comment = models.CharField (max_length=500, null=True, blank=True)
-    got_money = models.BooleanField(default=False)
-    got_tree = models.BooleanField(default=False)
-    lat = models.FloatField(null=False, blank=False)
-    lon = models.FloatField(null=False, blank=False)
+    email: models.EmailField = models.EmailField(max_length=128)
+    street_address: models.CharField = models.CharField(max_length=140, null=False, blank = False)
+    where_is_it: models.CharField = models.CharField (max_length=30, null=True, blank=True)
+    client_comment: models.CharField = models.CharField (max_length=256, null=True, blank=True) # Comment that comes from the tree registration app ('Pick up inside the house', etc.)
+    admin_comment: models.CharField = models.CharField (max_length=500, null=True, blank=True)
+    got_money: models.BooleanField = models.BooleanField(default=False)
+    got_tree: models.BooleanField = models.BooleanField(default=False)
+    lat: models.FloatField = models.FloatField(null=False, blank=False)
+    lon: models.FloatField = models.FloatField(null=False, blank=False)
 
     def save(self, *args, **kwargs):
         """

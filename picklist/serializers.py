@@ -4,7 +4,7 @@ from .models import PickList
 class PicklistSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
 
-    def get_name(self, obj):
+    def get_name(self, obj: PickList) -> str:
         return f'{obj.first_name} {obj.last_name}'
 
     class Meta:

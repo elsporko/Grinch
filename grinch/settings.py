@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'picklist',
     'gis',
     'route',
-     'drf_yasg',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
 ]
 
 MIDDLEWARE = [
@@ -117,7 +118,9 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
+from typing import List, Dict
+
+AUTH_PASSWORD_VALIDATORS: List[Dict[str, str]] = [
 #    {
 #        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
 #    },
@@ -163,7 +166,7 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 FIXTURE_DIRS = (
-   str(BASE_DIR) + '/tests/fixtures/',
+   f"{BASE_DIR}/tests/fixtures/",
 )
 
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
@@ -177,6 +180,15 @@ CORS_ALLOWED_ORIGINS = [
      'https://editor-next.swagger.io'
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Grinch API', 
+    'DESCRIPTION': 'API for Grinch Delivery Management System',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 # TODO - debug toolbar does not quite work. "djdt error message"
 # if DEBUG:

@@ -5,7 +5,7 @@ from .managers import CustomUserManager
 
  
 class GrinchUser(AbstractUser):
-    route = models.ForeignKey(Route, null=True, blank=True, on_delete=models.PROTECT)
+    route: models.ForeignKey = models.ForeignKey(Route, null=True, blank=True, on_delete=models.PROTECT)
 
     objects = CustomUserManager()
 

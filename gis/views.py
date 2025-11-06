@@ -7,7 +7,7 @@ from rest_framework import status
 import logging
 logger = logging.getLogger(__name__)
 
-class GIS(ListCreateAPIView):
+class GISView(ListCreateAPIView):
     queryset = GIS.objects.all()
     serializer_class = GISSerializer
 

@@ -11,37 +11,36 @@ from users.views import GrinchUserView, GrinchUserRegisterView, GrinchUserLoginV
 from route.views import (RouteViewSet)
 
 from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
 from rest_framework.routers import DefaultRouter
+from picklist.views import PicklistViewSet
 
 router = DefaultRouter()
 router.register(r'routes', RouteViewSet, basename='routes')
+router.register(r'picklists', PicklistViewSet, basename='picklists')
 
-schema_view = get_schema_view(
-   openapi.Info(
-      title="Grinch API",
-      default_version='v1',
-      description="Test description",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="elsporko@gmail.com"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularSwaggerView,
+    SpectacularRedocView,
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('', include("picklist.urls")),
     path('register/', GrinchUserRegisterView.as_view(), name='register'),
     path('login/', GrinchUserLoginView.as_view(), name='login'),
     path('logout/', GrinchUserLogoutView.as_view(), name='logout'),
     path('api/users/', GrinchUserView.as_view(), name='user'),
     path('api/users/<int:id>', GrinchUserView.as_view(), name='users'),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('swagger.json', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+
+   # Schema endpoint (raw OpenAPI JSON)
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Optional Swagger UI
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    # Optional ReDoc UI
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+
+
 ]
 
 

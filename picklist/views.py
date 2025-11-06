@@ -1,6 +1,8 @@
 #from django.shortcuts import render
 
-from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
+#from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
+from rest_framework import viewsets,status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 #from rest_framework.decorators import action
 from .models import PickList
@@ -8,42 +10,56 @@ from route.models import Route
 from .serializers import PicklistSerializer
 from route.serializers import RouteSerializer
 from rest_framework import status
+from rest_framework.decorators import action
+from .services import assign_route_data_service
+import pandas as pd
+import numpy as np
+
 
 import logging
 logger = logging.getLogger(__name__)
 
-class PicklistsViewSet(ListCreateAPIView):
+class PicklistViewSet(viewsets.ModelViewSet):
     queryset = PickList.objects.all()
     serializer_class = PicklistSerializer
 
-    def post(self, request):
-        data = request.data.copy()
+    @classmethod
+    @action(detail=False, methods=['put'])
+    def assign_groups(cls, request):
+        route_data = assign_route_data_service()
+        #print (route_data)
+        return Response({'message': 'Routes assigned'}, status=status.HTTP_200_OK)
+        
+    #def post(self, request):
+    #    "Add a new picklist entry"
+    #    data = request.data.copy()
 
-        serializer=self.get_serializer(data=data)
-        if not serializer.is_valid():
-            # TODO - Gracefully handle serializer invalidation
-            logger.error (f'ERROR: {serializer.errors}')
-        serializer.save()
+    #    serializer=self.get_serializer(data=data)
+    #    if not serializer.is_valid():
+    #        # TODO - Gracefully handle serializer invalidation
+    #        logger.error (f'ERROR: {serializer.errors}')
+    #    serializer.save()
+#
+    #    return Response(serializer.data, status=status.HTTP_200_OK)
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    # def put(self, request):
+    #     "Update an existing picklist entry"
+    #     data = request.data.copy()
 
-    def put(self, request):
-        data = request.data.copy()
+    #     logger.info(f'request: {request.__dict__}')
+    #     serializer=self.get_serializer(data=data)
+    #     serializer.is_valid()
+    #     # TODO raise an error if there is a save error
+    #     serializer.save()
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
 
-        logger.info(f'request: {request.__dict__}')
-        serializer=self.get_serializer(data=data)
-        serializer.is_valid()
-        # TODO raise an error if there is a save error
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_200_OK)
+# class PicklistViewSet(RetrieveAPIView):
+#     queryset = PickList.objects.all().order_by('route')
+#     serializer_class = PicklistSerializer
 
-class PicklistViewSet(RetrieveAPIView):
-    queryset = PickList.objects.all().order_by('route')
-    serializer_class = PicklistSerializer
-
-class RoutesViewSet(ListCreateAPIView):
-    queryset = Route.objects.filter(active=True)
-    serializer_class = RouteSerializer
+# class RoutesViewSet(ListCreateAPIView):
+#     queryset = Route.objects.filter(active=True)
+#     serializer_class = RouteSerializer
 
 #    @action(detail=True, methods=['put','post'])
 #    def post (self, request):
@@ -69,7 +85,7 @@ class RoutesViewSet(ListCreateAPIView):
 
         #return Response({"message": {'Could not save, Bad data.'}}, status=status.HTTP_400_BAD_REQUEST)
 
-class RouteViewSet(RetrieveAPIView):
-    queryset = Route.objects.filter(active=True)
-    serializer_class = RouteSerializer
+# class RouteViewSet(RetrieveAPIView):
+#     queryset = Route.objects.filter(active=True)
+#     serializer_class = RouteSerializer
 
