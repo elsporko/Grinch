@@ -1,31 +1,17 @@
 from django.contrib.auth import login, logout
 from rest_framework.authentication import SessionAuthentication
-from rest_framework import permissions, status
-from rest_framework.generics import ListAPIView, RetrieveAPIView, GenericAPIView
-from rest_framework.views import APIView
+from rest_framework import permissions, status, viewsets
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from .serializers import GrinchUserSerializer, GrinchLoginSerializer, GrinchUserRegisterSerializer
 from .validations import custom_validation, validate_password, validate_username
 
 from .models import GrinchUser
 
-
-class GrinchUserView(ListAPIView, RetrieveAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
-
+class GrinchUserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = GrinchUser.objects.exclude(is_staff=True, is_active=False)
     serializer_class = GrinchUserSerializer
-
-    def get(self, request, *args, **kwargs):
-        if user_id := kwargs.get('id'):
-            user = GrinchUser.objects.get(id=user_id)
-            serializer = self.get_serializer(user)
-        else:
-            users = self.get_queryset()
-            serializer = self.get_serializer(users, many=True)
-        return Response(serializer.data)
-
+    lookup_field = 'id'
 
 class GrinchUserRegisterView(GenericAPIView):
     serializer_class =GrinchUserRegisterSerializer

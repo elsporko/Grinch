@@ -7,7 +7,7 @@ from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 # from django.urls import re_path
 
-from users.views import GrinchUserView, GrinchUserRegisterView, GrinchUserLoginView, GrinchUserLogoutView
+from users.views import GrinchUserViewSet, GrinchUserRegisterView, GrinchUserLoginView, GrinchUserLogoutView
 from route.views import (RouteViewSet)
 
 from rest_framework import permissions
@@ -17,6 +17,7 @@ from picklist.views import PicklistViewSet
 router = DefaultRouter()
 router.register(r'routes', RouteViewSet, basename='routes')
 router.register(r'picklists', PicklistViewSet, basename='picklists')
+router.register('users', GrinchUserViewSet, basename='users')
 
 from drf_spectacular.views import (
     SpectacularAPIView,
@@ -30,8 +31,6 @@ urlpatterns = [
     path('register/', GrinchUserRegisterView.as_view(), name='register'),
     path('login/', GrinchUserLoginView.as_view(), name='login'),
     path('logout/', GrinchUserLogoutView.as_view(), name='logout'),
-    path('api/users/', GrinchUserView.as_view(), name='user'),
-    path('api/users/<int:id>', GrinchUserView.as_view(), name='users'),
 
    # Schema endpoint (raw OpenAPI JSON)
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
